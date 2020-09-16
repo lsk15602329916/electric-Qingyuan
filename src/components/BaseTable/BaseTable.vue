@@ -81,7 +81,7 @@ export default {
 
 <style scoped lang="scss">
   .container{
-    margin: 50px 0;
+    margin: 40px 0;
     .title{
       font-size: 20px;
       font-weight: bold;

@@ -19,6 +19,10 @@
       </baseBar>
     </aside>
     <aside style="right: 0">
+      <warningInformation></warningInformation>
+      <weatherForecast></weatherForecast>
+      <realTimeWeather></realTimeWeather>
+      <lineLoad></lineLoad>
     </aside>
     <header>
       <h1>输电运维决策支持系统</h1>
@@ -31,21 +35,30 @@
     <transition name="fade" mode="out-in">
       <router-view class="main"></router-view>
     </transition>
+    <div class="background"></div>
   </div>
 </template>
 <script>
   import baseBar from '@components/BaseBar/BaseBar.vue'
   import baseTable from '@components/BaseTable/BaseTable.vue'
+  import warningInformation from '@components/RightAside/WarningInformation.vue'
+  import weatherForecast from '@components/RightAside/WeatherForecast.vue'
+  import realTimeWeather from "@/components/RightAside/RealTimeWeather";
+  import lineLoad from "@/components/RightAside/LineLoad";
   import theme from './utils'
   export default {
     name: 'app',
     components: {
       baseBar,
-      baseTable
+      baseTable,
+      warningInformation,
+      weatherForecast,
+      realTimeWeather,
+      lineLoad
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
  #app{
    position: relative;
    min-width: 1600px;
@@ -54,33 +67,50 @@
    max-height: 100vh;
    margin: auto;
    padding: 0 400px;
-   background-color: white;
    overflow: hidden;
+   background-color: rgba(255, 255, 255, .8);
+   /*.background{
+     position: fixed;
+     width: 100%;
+     height: 100%;
+     left: 0;
+     top: 0;
+     background-image: url("../src/assets/image/background.jpg");
+     background-size: cover;
+     background-repeat: no-repeat;
+     z-index: -1;
+   }
+   */
    header{
      padding: 40px;
-     height: 250px;
+     height: 180px;
      text-align: center;
      color: #83bff6;
      h1{
        font-size: 2.5rem;
        letter-spacing: .5rem;
+       color: #303133;
      }
      .router-container{
        display: flex;
        justify-content: center;
-       margin: 40px auto;
+       margin: 10px auto;
        padding: 20px;
        a{
          display: inline-block;
          height: 40px;
          padding: 10px 20px;
-         border: 1px solid aquamarine;
+         border: 1px solid skyblue;
+         transition: all ease .5s;
+         &:hover{
+           background-color: skyblue;
+           color: white;
+         }
        }
      }
    }
    .main{
-     height: calc(100% - 250px);
-     background-color: darkolivegreen;
+     height: calc(100% - 180px);
    }
    aside{
      position: absolute;
@@ -94,7 +124,8 @@
    }
  }
  .router-link-active{
-   background-color: aquamarine;
+   background-color: skyblue;
+   color: white;
  }
  .fade-enter-active, .fade-leave-active {
    transition: opacity .25s;
