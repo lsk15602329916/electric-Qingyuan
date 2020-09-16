@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <aside style="left: 0">
+      <baseTable></baseTable>
       <baseBar
         title="杆塔区域"
         :data="[28350, 12893, 4836]"
@@ -17,14 +18,14 @@
         :dataAxis="['危急', '严重', '一般']">
       </baseBar>
     </aside>
-    <aside style="right: 0"></aside>
+    <aside style="right: 0">
+    </aside>
     <header>
       <h1>输电运维决策支持系统</h1>
       <div class="router-container">
         <router-link tag="a" to="/derivative-risk">衍生风险预警</router-link>
         <router-link tag="a" to="/defect-development">缺陷发展预警</router-link>
         <router-link tag="a" to="/fault-cause">故障根因识别</router-link>
-
       </div>
     </header>
     <transition name="fade" mode="out-in">
@@ -34,11 +35,13 @@
 </template>
 <script>
   import baseBar from '@components/BaseBar/BaseBar.vue'
+  import baseTable from '@components/BaseTable/BaseTable.vue'
   import theme from './utils'
   export default {
     name: 'app',
     components: {
-      baseBar
+      baseBar,
+      baseTable
     }
   }
 </script>
@@ -46,12 +49,13 @@
  #app{
    position: relative;
    min-width: 1600px;
-   height: calc(100vh - 80px);
+   height: 100vh;
    min-height: 900px;
-   max-height: calc(100vh - 80px);
+   max-height: 100vh;
    margin: auto;
    padding: 0 400px;
    background-color: white;
+   overflow: hidden;
    header{
      padding: 40px;
      height: 250px;
@@ -82,6 +86,7 @@
      position: absolute;
      width: 400px;
      height: 100%;
+     padding: 20px 0;
      display: flex;
      flex-direction: column;
      align-items: center;
