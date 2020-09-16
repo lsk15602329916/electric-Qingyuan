@@ -1,6 +1,22 @@
 <template>
   <div id="app">
-    <aside style="left: 0"></aside>
+    <aside style="left: 0">
+      <baseBar
+        title="杆塔区域"
+        :data="[28350, 12893, 4836]"
+        :dataAxis="['山地', '林地', '城区']">
+      </baseBar>
+      <baseBar
+        title="衍生风险统计"
+        :data="[4, 9, 23, 56, 78, 180]"
+        :dataAxis="['Ⅰ级风险', 'Ⅱ级风险', 'Ⅲ级风险', 'Ⅳ级风险', 'Ⅴ级风险', 'Ⅵ级风险']">
+      </baseBar>
+      <baseBar
+        title="缺陷等级设计"
+        :data="[2, 3, 17]"
+        :dataAxis="['危急', '严重', '一般']">
+      </baseBar>
+    </aside>
     <aside style="right: 0"></aside>
     <header>
       <h1>输电运维决策支持系统</h1>
@@ -8,6 +24,7 @@
         <router-link tag="a" to="/derivative-risk">衍生风险预警</router-link>
         <router-link tag="a" to="/defect-development">缺陷发展预警</router-link>
         <router-link tag="a" to="/fault-cause">故障根因识别</router-link>
+
       </div>
     </header>
     <transition name="fade" mode="out-in">
@@ -15,23 +32,31 @@
     </transition>
   </div>
 </template>
-
+<script>
+  import baseBar from '@components/BaseBar/BaseBar.vue'
+  import theme from './utils'
+  export default {
+    name: 'app',
+    components: {
+      baseBar
+    }
+  }
+</script>
 <style lang="scss">
  #app{
    position: relative;
    min-width: 1600px;
-   max-width: 1800px;
    height: calc(100vh - 80px);
    min-height: 900px;
    max-height: calc(100vh - 80px);
    margin: auto;
-   padding: 0 420px;
+   padding: 0 400px;
    background-color: white;
    header{
      padding: 40px;
      height: 250px;
      text-align: center;
-     color: darkblue;
+     color: #83bff6;
      h1{
        font-size: 2.5rem;
        letter-spacing: .5rem;
@@ -51,14 +76,16 @@
    }
    .main{
      height: calc(100% - 250px);
-     padding: 20px;
      background-color: darkolivegreen;
    }
    aside{
      position: absolute;
      width: 400px;
      height: 100%;
-     background-color: antiquewhite;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
    }
  }
  .router-link-active{
