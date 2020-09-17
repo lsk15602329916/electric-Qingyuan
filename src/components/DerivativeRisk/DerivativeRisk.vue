@@ -1,15 +1,59 @@
 <template>
   <div class="container">
+    <div style="text-align: center; margin: 20px auto 40px">
+      <el-dropdown @command="handleCommand">
+        <el-button type="primary">
+          <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            v-for="item in options"
+            :command="item"
+            :key="item.value"
+            :value="item.value">
+            {{item.label}}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
     <header>
-      <el-tag
-        type="dark"
-        v-for="item in risks"
-        :style="{
+      <div style="display: inline-block; padding-right: 50px">
+        <el-tag
+          size="small"
+          type="dark"
+          v-for="item in risks"
+          :style="{
           background: item.color,
           border: 'none',
-          margin: '8px'
+          margin: '4px'
         }"
-      >{{item.label}}: {{item.count}} 个</el-tag>
+        >{{item.label}}: {{item.count}} 个
+        </el-tag>
+      </div>
+      <div style="display: inline-block; font-size: 12px">
+        <span style="padding-right: 10px">
+          分区检索
+          <el-select size="mini" v-model="area" placeholder="请选择" style="width: 90px">
+          <el-option
+            v-for="item in areaOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        </span>
+        <span>
+          分时检索
+          <el-select size="mini" v-model="time" placeholder="请选择" style="width: 90px">
+          <el-option
+            v-for="item in timeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        </span>
+      </div>
     </header>
     <el-table
       :data="tableData"
@@ -30,6 +74,9 @@
         prop="name"
         label="线路名称"
         width="120">
+        <template slot-scope="scope">
+          <el-link type="danger"><span style="color: #F56C6C;">{{ scope.row.name }}</span></el-link>
+        </template>
       </el-table-column>
       <el-table-column
         prop="degree"
@@ -67,6 +114,35 @@ export default {
   name: "DerivativeRisk",
   data() {
     return {
+      area: '清城区',
+      time: '当前',
+      areaOptions: [
+        {
+          label: '清城区',
+          value: '清城区'
+        }
+      ],
+      timeOptions: [
+        {
+          label: '当前',
+          value: '当前'
+        }
+      ],
+      selected: '衍生风险预警',
+      selectedLabel: '衍生风险预警',
+      options: [{
+        value: 1,
+        label: '衍生风险预警'
+      }, {
+        value: 2,
+        label: '历史故障统计分析'
+      }, {
+        value: 3,
+        label: '衍生风险历史统计'
+      }, {
+        value: 4,
+        label: '衍生风险详细分析'
+      }],
       risks: [{
         label: 'I级风险',
         count: 3,
@@ -141,6 +217,12 @@ export default {
         team: '输电线路八班',
         date: '2020/6/30 12:35:00'
       },]
+    }
+  },
+  methods: {
+    handleCommand({ value, label }) {
+      this.selected = value
+      this.selectedLabel = label
     }
   }
 }

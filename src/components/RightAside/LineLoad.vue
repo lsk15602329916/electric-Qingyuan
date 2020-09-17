@@ -6,7 +6,7 @@
       220KV 平均超过 50%
       </span>
       <span style="padding-left: 65px">
-        <span class="num">3</span> 条
+        <span class="num">13</span> 条
       </span>
     </p>
     <p>
@@ -14,7 +14,7 @@
        110KV 平均超过 50%
       </span>
       <span style="padding-left: 65px">
-        <span class="num">5</span> 条
+        <span class="num">78</span> 条
       </span>
     </p>
   </div>

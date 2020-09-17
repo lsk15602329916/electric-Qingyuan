@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <header>实时天气信息</header>
-    <p>温度：</p>
-    <p>湿度：</p>
-    <p>风力：</p>
-    <p>微气象预警：</p>
+    <p>温度：35°C</p>
+    <p>湿度：80%</p>
+    <p>风力：4</p>
+    <p>微气象预警：雷雨预警</p>
   </div>
 </template>
 

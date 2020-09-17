@@ -69,18 +69,6 @@
    padding: 0 400px;
    overflow: hidden;
    background-color: rgba(255, 255, 255, .8);
-   /*.background{
-     position: fixed;
-     width: 100%;
-     height: 100%;
-     left: 0;
-     top: 0;
-     background-image: url("../src/assets/image/background.jpg");
-     background-size: cover;
-     background-repeat: no-repeat;
-     z-index: -1;
-   }
-   */
    header{
      padding: 40px;
      height: 180px;
