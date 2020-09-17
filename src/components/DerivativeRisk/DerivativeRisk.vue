@@ -75,7 +75,7 @@
         label="线路名称"
         width="120">
         <template slot-scope="scope">
-          <el-link type="danger"><span style="color: #F56C6C;">{{ scope.row.name }}</span></el-link>
+          <el-link type="danger"><span style="color: #F56C6C;" @click="showDrawer">{{ scope.row.name }}</span></el-link>
         </template>
       </el-table-column>
       <el-table-column
@@ -106,14 +106,29 @@
        >
       </el-table-column>
     </el-table>
+    <el-drawer
+      title=""
+      :with-header="false"
+      size="50%"
+      :visible.sync="drawer"
+      :direction="direction"
+      :before-close="handleClose">
+      <detailedAnalysis></detailedAnalysis>
+    </el-drawer>
   </div>
 </template>
 
 <script>
+import detailedAnalysis from '@/components/DerivativeRisk/DetailedAnalysis'
 export default {
   name: "DerivativeRisk",
+  components: {
+    detailedAnalysis
+  },
   data() {
     return {
+      drawer: false,
+      direction: 'ltr',
       area: '清城区',
       time: '当前',
       areaOptions: [
@@ -220,9 +235,19 @@ export default {
     }
   },
   methods: {
+    showDrawer() {
+      this.drawer = true
+    },
     handleCommand({ value, label }) {
       this.selected = value
       this.selectedLabel = label
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
     }
   }
 }
