@@ -21,7 +21,8 @@
         <el-tag
           size="small"
           type="dark"
-          v-for="item in risks"
+          v-for="(item, index) in risks"
+          :key="index"
           :style="{
           background: item.color,
           border: 'none',
