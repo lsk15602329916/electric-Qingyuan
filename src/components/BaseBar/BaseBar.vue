@@ -37,6 +37,10 @@ export default {
     data: {
       type: Array,
       require: true
+    },
+    left: {
+      type: Number,
+      default: 100
     }
   },
   data() {
@@ -63,7 +67,7 @@ export default {
 
     let option = {
       grid: {
-        left: 100
+        left: this.left
       },
       title: {
         x: 'center',

@@ -1,36 +1,38 @@
 <template>
   <div class="container">
     <div style="text-align: center; margin: 20px auto 40px">
-      <el-dropdown @command="handleCommand">
-        <el-button type="primary">
-          <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
-        </el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            v-for="item in options"
-            :command="item"
-            :key="item.value"
-            :value="item.value">
-            {{item.label}}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-    <header>
-      <div style="display: inline-block; padding-right: 50px">
-        <el-tag
-          size="small"
-          type="dark"
-          v-for="item in risks"
-          :style="{
+        <el-dropdown @command="handleCommand">
+          <el-button type="primary">
+            <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-for="item in options"
+              :command="item"
+              :key="item.value"
+              :value="item.value">
+              {{item.label}}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+    <transition name="fade">
+      <div v-if="selected === 1">
+        <header>
+          <div style="display: inline-block; padding-right: 50px">
+            <el-tag
+              size="small"
+              type="dark"
+              v-for="item in risks"
+              :style="{
           background: item.color,
           border: 'none',
           margin: '4px'
         }"
-        >{{item.label}}: {{item.count}} 个
-        </el-tag>
-      </div>
-      <div style="display: inline-block; font-size: 12px">
+            >{{item.label}}: {{item.count}} 个
+            </el-tag>
+          </div>
+          <div style="display: inline-block; font-size: 12px">
         <span style="padding-right: 10px">
           分区检索
           <el-select size="mini" v-model="area" placeholder="请选择" style="width: 90px">
@@ -42,7 +44,7 @@
           </el-option>
         </el-select>
         </span>
-        <span>
+            <span>
           分时检索
           <el-select size="mini" v-model="time" placeholder="请选择" style="width: 90px">
           <el-option
@@ -53,68 +55,73 @@
           </el-option>
         </el-select>
         </span>
+          </div>
+        </header>
+        <el-table
+          :data="tableData"
+          stripe
+          border
+          style="width: 100%">
+          <el-table-column
+            fixed
+            type="index"
+            width="60">
+          </el-table-column>
+          <el-table-column
+            prop="voltage"
+            label="电压等级"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="线路名称"
+            width="120">
+            <template slot-scope="scope">
+              <el-link type="danger"><span style="color: #F56C6C;" @click="showDrawer">{{ scope.row.name }}</span></el-link>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="degree"
+            label="用户重要程度"
+            width="140">
+          </el-table-column>
+          <el-table-column
+            prop="forecast"
+            label="故障概率预测"
+            width="140">
+          </el-table-column>
+          <el-table-column
+            prop="riskLevel"
+            label="衍生风险等级"
+            width="140">
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            prop="team"
+            label="班组"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            prop="date"
+            label="预测时间"
+          >
+          </el-table-column>
+        </el-table>
+        <el-drawer
+          title=""
+          :with-header="false"
+          size="50%"
+          :visible.sync="drawer"
+          :direction="direction"
+          :before-close="handleClose">
+          <detailedAnalysis></detailedAnalysis>
+        </el-drawer>
       </div>
-    </header>
-    <el-table
-      :data="tableData"
-      stripe
-      border
-      style="width: 100%">
-      <el-table-column
-        fixed
-        type="index"
-        width="60">
-      </el-table-column>
-      <el-table-column
-        prop="voltage"
-        label="电压等级"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="线路名称"
-        width="120">
-        <template slot-scope="scope">
-          <el-link type="danger"><span style="color: #F56C6C;" @click="showDrawer">{{ scope.row.name }}</span></el-link>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="degree"
-        label="用户重要程度"
-        width="140">
-      </el-table-column>
-      <el-table-column
-        prop="forecast"
-        label="故障概率预测"
-        width="140">
-      </el-table-column>
-      <el-table-column
-        prop="riskLevel"
-        label="衍生风险等级"
-        width="140">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        prop="team"
-        label="班组"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        prop="date"
-        label="预测时间"
-       >
-      </el-table-column>
-    </el-table>
-    <el-drawer
-      title=""
-      :with-header="false"
-      size="50%"
-      :visible.sync="drawer"
-      :direction="direction"
-      :before-close="handleClose">
-      <detailedAnalysis></detailedAnalysis>
-    </el-drawer>
+      <div v-else>
+
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -143,7 +150,7 @@ export default {
           value: '当前'
         }
       ],
-      selected: '衍生风险预警',
+      selected: 1,
       selectedLabel: '衍生风险预警',
       options: [{
         value: 1,
@@ -262,4 +269,11 @@ export default {
      border-bottom: none;
    }
  }
+ .fade-enter-active, .fade-leave-active {
+   transition: opacity .5s;
+ }
+ .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+   opacity: 0;
+ }
+
 </style>
