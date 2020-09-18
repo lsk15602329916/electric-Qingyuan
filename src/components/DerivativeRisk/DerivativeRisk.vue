@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-<<<<<<< HEAD
     <div style="text-align: center; margin: 20px auto 40px">
       <el-dropdown @command="handleCommand">
         <el-button type="primary">
@@ -31,24 +30,8 @@
         }"
         >{{item.label}}: {{item.count}} 个
         </el-tag>
-=======
-    <div style="text-align: center; margin: 20px auto">
-        <el-dropdown @command="handleCommand">
-          <el-button type="primary">
-            <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="item in options"
-              :command="item"
-              :key="item.value"
-              :value="item.value">
-              {{item.label}}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
->>>>>>> 5046219369fa5bcb98a6e314b9800ccb92f01e47
       </div>
+    </header>
     <transition name="fade" mode="out-in">
       <home v-if="selected === 1" key="1"></home>
       <historyFailure v-else key="2"></historyFailure>
