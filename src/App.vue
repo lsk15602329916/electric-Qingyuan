@@ -61,7 +61,7 @@
 <style lang="scss" scoped>
  #app{
    position: relative;
-   min-width: 1800px;
+   min-width: 1600px;
    height: 100vh;
    min-height: 900px;
    max-height: 100vh;
