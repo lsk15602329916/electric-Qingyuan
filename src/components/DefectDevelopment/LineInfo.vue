@@ -1,0 +1,414 @@
+<template>
+<div>
+<!-- 点击线路名称,展示线路具体信息的组件-->
+    <el-drawer
+    :visible.sync="drawer"
+    :direction="direction"
+    :with-header="false"
+    size="60%"
+    >
+        <h3 class="small-title">220kV燕浩甲线缺陷历史关联因素分析结果</h3>
+        <el-table
+            :data="table1Data"
+            style="width: 60%"
+            border
+            stripe
+            :cell-style="cellStyle"
+            class="small-table">
+            <el-table-column
+                prop="number"
+                label="#"
+                min-width="4%">
+            </el-table-column>
+            <el-table-column
+                prop="rule"
+                label="关联规则"
+                min-width="55%"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                prop="defect_type"
+                label="关联缺陷类型"
+                min-width="22%">
+            </el-table-column>
+            <el-table-column
+                prop="degree_of_confidence"
+                label="置信度"
+                min-width="15%">
+            </el-table-column>
+        </el-table>
+        <h3 class="big-title">220kV燕浩甲线当前及历史信息</h3>
+        <el-table
+            :data="table2Data"
+            style="width: 85%"
+            height="370"
+            border
+            stripe
+            :cell-style="cellStyle"
+            class="big-table">
+            <el-table-column
+                prop="track_section"
+                label="线路区段"
+                min-width="12%">
+            </el-table-column>
+            <el-table-column
+                prop="categories_and_results"
+                label="缺陷类别、等级预测结果"
+                min-width="12%">
+            </el-table-column>
+            <el-table-column
+                prop="tower_model"
+                label="杆塔型号"
+                min-width="10%">
+            </el-table-column>
+            <el-table-column
+                prop="region"
+                label="地区"
+                min-width="5%">
+            </el-table-column>
+            <el-table-column
+                prop="elimination_time"
+                label="消缺时间"
+                min-width="5%">
+            </el-table-column>
+            <el-table-column
+                prop="special_area"
+                label="特殊区域"
+                min-width="6%">
+            </el-table-column>
+            <el-table-column
+                prop="topography"
+                label="地形"
+                min-width="7%">
+            </el-table-column>
+            <el-table-column
+                prop="atmospheric_temperature"
+                label="气温"
+                min-width="7%">
+            </el-table-column>
+            <el-table-column
+                prop="rainfall"
+                label="降雨量"
+                min-width="7%">
+            </el-table-column>
+            <el-table-column
+                prop="humidity"
+                label="湿度"
+                min-width="7%">
+            </el-table-column>
+            <el-table-column
+                prop="wind_speed"
+                label="风速"
+                min-width="7%">
+            </el-table-column>
+        </el-table>
+        <el-button @click="transmitBoolean">关闭</el-button>
+        <el-button @click="historicalAnalysis">历史统计分析</el-button>
+    </el-drawer>
+    <MyAnalysis :showAnalysis='showAnalysis' @close-analysis='changeBoolean2'></MyAnalysis>
+</div>
+</template>
+
+<script>
+import MyAnalysis from '@/components/DefectDevelopment/Analysis.vue'
+export default {
+    name: "LineInfo", 
+    components:{MyAnalysis},
+    props:['drawer'],
+    data(){
+        return {
+            //抽屉从右向左打开
+            direction: 'rtl',
+            //
+            table1Data:[
+                {
+                    number:1,
+                    rule:'110kV、暴雨、树木速长区、微风、高温',
+                    defect_type:'安全距离不足',
+                    degree_of_confidence:1
+                },
+                {
+                    number:2,
+                    rule:'500kV、高湿度、大暴雨、微风、普通直线塔',
+                    defect_type:'标志牌损坏',
+                    degree_of_confidence:0.941
+                },
+                {
+                    number:3,
+                    rule:'普通耐张塔、中雨、500kV、大风、中低温',
+                    defect_type:'玻璃绝缘子自爆',
+                    degree_of_confidence:1
+                },
+                {
+                    number:4,
+                    rule:'山地、中高温、500kV、微风、小雨、普通直线塔',
+                    defect_type:'防护金具',
+                    degree_of_confidence:0.842
+                },
+                {
+                    number:5,
+                    rule:'丘陵、微气象微地形区、高湿度、大风、普通直线杆',
+                    defect_type:'鸟害',
+                    degree_of_confidence:0.909
+                },
+                {
+                    number:6,
+                    rule:'普通耐张塔、中雨、易冲刷区、丘陵、500kV',
+                    defect_type:'缺损',
+                    degree_of_confidence:0.806
+                },
+                {
+                    number:7,
+                    rule:'微气象微地形区、普通直线杆、暴雨',
+                    defect_type:'塔上异物',
+                    degree_of_confidence:1
+                },
+            ],
+            table2Data:[
+                {//1
+                    track_section:'N23杆塔单元',
+                    categories_and_results:'部件发热：1',
+                    tower_model:'普通直线塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//2
+                    track_section:'N27杆塔单元',
+                    categories_and_results:'其他：4',
+                    tower_model:'普通直线塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//3
+                    track_section:'N30+1杆塔单元',
+                    categories_and_results:'防护设施损坏：3',
+                    tower_model:'普通直线塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//4
+                    track_section:'N56杆塔单元',
+                    categories_and_results:'塔材及螺栓缺损、松动：3',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//5
+                    track_section:'N38杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//6
+                    track_section:'N56杆塔单元',
+                    categories_and_results:'劣化自爆：4',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//7
+                    track_section:'N38杆塔单元',
+                    categories_and_results:'劣化自爆：4',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//8
+                    track_section:'N38杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//9
+                    track_section:'N33杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//10
+                    track_section:'N13杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//11
+                    track_section:'N28杆塔单元',
+                    categories_and_results:'劣化自爆：4',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//12
+                    track_section:'N5杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通耐张塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//13
+                    track_section:'N6杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通直线塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//14
+                    track_section:'N6杆塔单元',
+                    categories_and_results:'缺损：3',
+                    tower_model:'普通直线塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+                {//15
+                    track_section:'N4杆塔单元',
+                    categories_and_results:'松脱、位移：3',
+                    tower_model:'普通直线塔',
+                    region:'',
+                    elimination_time:'',
+                    special_area:'无',
+                    topography:'丘陵',
+                    atmospheric_temperature:'中高温',
+                    rainfall:'暴雨',
+                    humidity:'高湿度',
+                    wind_speed:'微风'
+                },
+            ],
+            showAnalysis:false
+        };
+    },
+    methods: {
+        cellStyle(row,column,rowIndex,columnIndex){
+            return 'padding:2px'
+        },
+        //传值给父组件，控制抽屉的关闭
+        transmitBoolean:function(){
+            this.$emit("true-to-false")
+        },
+        //传值给子组件，控制历史统计分析组件的开关
+        historicalAnalysis(){
+            this.showAnalysis = true
+            console.log(this.showAnalysis)
+        },
+        //监控子组件
+        changeBoolean2(){
+            this.showAnalysis = false
+        }
+    }
+
+}
+</script>
+
+<style scoped>
+.el-table{
+    border: 1px solid black;
+    margin-top:10px;
+    margin-bottom:5px;
+    font-size:10px;
+}
+.small-table{
+    margin-left:180px;
+}
+.big-table{
+    margin-left:70px;
+}
+/* .big-table__header-wrapper{
+    height: 48px;
+}
+.big-table__body-wrapper{
+    height: calc(370px - 48px) !important;
+} */
+.small-title{
+    margin-left:270px;
+}
+.big-title{
+    margin-left:300px;
+}
+</style>
