@@ -37,7 +37,19 @@ export default {
     data: {
       type: Array,
       require: true
-    }
+    },
+    left: {
+      type: Number,
+      default: 100
+    },
+    yAxisName: {
+      type: String,
+      default: ''
+    },
+    xAxisName: {
+      type: String,
+      default: ''
+    },
   },
   data() {
     return {
@@ -53,8 +65,10 @@ export default {
     let myChart = echarts.init(document.querySelector(`#baseBar-${this.bid}`));
     let dataAxis = this.dataAxis;
     let data = this.data;
-    let title = this.title
+    let title = `    ${this.title}` // 加几个空格，否则文本不居中
     let yMax = Math.max(...data) + Math.min(...data);
+    let yAxisName = this.yAxisName
+    let xAxisName = this.xAxisName
     let dataShadow = [];
 
     for (let i = 0; i < data.length; i++) {
@@ -63,7 +77,7 @@ export default {
 
     let option = {
       grid: {
-        left: 100
+        left: this.left
       },
       title: {
         x: 'center',
@@ -74,7 +88,12 @@ export default {
         },
       },
       xAxis: {
+        name: xAxisName,
         data: dataAxis,
+        nameLocation: 'middle',
+        nameTextStyle: {
+          lineHeight: 30
+        },
         axisLabel: {
           inside: false,
           textStyle: {
@@ -90,14 +109,14 @@ export default {
         z: 10
       },
       yAxis: {
-        name: '',
+        name: yAxisName,
         nameLocation: 'end',
         nameTextStyle: {
           fontSize: 14,
           verticalAlign: 'bottom'
         },
         axisLine: {
-          show: true
+          show: false
         },
         axisTick: {
           show: false
