@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :key="date">
+  <div class="container">
     <header>220KV 坡旗甲线故障预警及衍生风险分析</header>
     <main>
       <div class="left">
@@ -82,14 +82,16 @@ export default {
   data() {
     return {
       barShow: false,
-      date: new Date()
     };
-  },
-  mounted() {
-    this.date = new Date()
   },
   methods: {
 
+  },
+  created() {
+    console.log(1)
+  },
+  mounted() {
+    console.log(2)
   }
 }
 </script>
