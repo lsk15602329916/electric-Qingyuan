@@ -28,7 +28,7 @@ export default {
 
 <style scoped lang="scss">
 .container{
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 15px;
   width: calc(100% - 30px);
   border: 2px solid #409EFF;

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="text-align: center; margin: 20px auto 40px">
+    <div style="text-align: center; margin: 20px auto">
       <el-dropdown @command="handleCommand">
         <el-button type="primary">
           <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
@@ -16,22 +16,6 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <header>
-      <div style="display: inline-block; padding-right: 50px">
-        <el-tag
-          size="small"
-          type="dark"
-          v-for="(item, index) in risks"
-          :key="index"
-          :style="{
-          background: item.color,
-          border: 'none',
-          margin: '4px'
-        }"
-        >{{item.label}}: {{item.count}} 个
-        </el-tag>
-      </div>
-    </header>
     <transition name="fade" mode="out-in">
       <home v-if="selected === 1" key="1"></home>
       <historyFailure v-else key="2"></historyFailure>
