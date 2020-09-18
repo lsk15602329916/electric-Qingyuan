@@ -319,5 +319,4 @@ export default {
   color:red;
   cursor:pointer
 }
-
 </style>
