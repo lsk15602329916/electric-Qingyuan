@@ -1,7 +1,29 @@
 <template>
   <div id="app">
-    <aside style="left: 0"></aside>
-    <aside style="right: 0"></aside>
+    <aside style="left: 0">
+      <baseTable></baseTable>
+      <baseBar
+        title="杆塔区域"
+        :data="[28350, 12893, 4836]"
+        :dataAxis="['山地', '林地', '城区']">
+      </baseBar>
+      <baseBar
+        title="衍生风险统计"
+        :data="[4, 9, 23, 56, 78, 180]"
+        :dataAxis="['Ⅰ级风险', 'Ⅱ级风险', 'Ⅲ级风险', 'Ⅳ级风险', 'Ⅴ级风险', 'Ⅵ级风险']">
+      </baseBar>
+      <baseBar
+        title="缺陷等级设计"
+        :data="[2, 3, 17]"
+        :dataAxis="['危急', '严重', '一般']">
+      </baseBar>
+    </aside>
+    <aside style="right: 0">
+      <warningInformation></warningInformation>
+      <weatherForecast></weatherForecast>
+      <realTimeWeather></realTimeWeather>
+      <lineLoad></lineLoad>
+    </aside>
     <header>
       <h1>输电运维决策支持系统</h1>
       <div class="router-container">
@@ -13,56 +35,85 @@
     <transition name="fade" mode="out-in">
       <router-view class="main"></router-view>
     </transition>
+    <div class="background"></div>
   </div>
 </template>
-
-<style lang="scss">
+<script>
+  import baseBar from '@components/BaseBar/BaseBar.vue'
+  import baseTable from '@components/BaseTable/BaseTable.vue'
+  import warningInformation from '@components/RightAside/WarningInformation.vue'
+  import weatherForecast from '@components/RightAside/WeatherForecast.vue'
+  import realTimeWeather from "@/components/RightAside/RealTimeWeather";
+  import lineLoad from "@/components/RightAside/LineLoad";
+  import theme from './utils'
+  export default {
+    name: 'app',
+    components: {
+      baseBar,
+      baseTable,
+      warningInformation,
+      weatherForecast,
+      realTimeWeather,
+      lineLoad
+    }
+  }
+</script>
+<style lang="scss" scoped>
  #app{
    position: relative;
    min-width: 1600px;
-   max-width: 1800px;
-   height: calc(100vh - 80px);
+   height: 100vh;
    min-height: 900px;
-   max-height: calc(100vh - 80px);
+   max-height: 100vh;
    margin: auto;
-   padding: 0 420px;
-   background-color: white;
+   padding: 0 400px;
+   overflow: hidden;
+   background-color: rgba(255, 255, 255, .8);
    header{
      padding: 40px;
-     height: 250px;
+     height: 180px;
      text-align: center;
-     color: darkblue;
+     color: #83bff6;
      h1{
        font-size: 2.5rem;
        letter-spacing: .5rem;
+       color: #303133;
      }
      .router-container{
        display: flex;
        justify-content: center;
-       margin: 40px auto;
+       margin: 10px auto;
        padding: 20px;
        a{
          display: inline-block;
          height: 40px;
          padding: 10px 20px;
-         border: 1px solid aquamarine;
+         border: 1px solid skyblue;
+         transition: all ease .5s;
+         &:hover{
+           background-color: skyblue;
+           color: white;
+         }
        }
      }
    }
    .main{
-     height: calc(100% - 250px);
-     padding: 20px;
-     background-color: darkolivegreen;
+     height: calc(100% - 180px);
    }
    aside{
      position: absolute;
      width: 400px;
      height: 100%;
-     background-color: antiquewhite;
+     padding: 20px 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
    }
  }
  .router-link-active{
-   background-color: aquamarine;
+   background-color: skyblue;
+   color: white;
  }
  .fade-enter-active, .fade-leave-active {
    transition: opacity .25s;
