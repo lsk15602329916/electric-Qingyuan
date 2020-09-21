@@ -1,23 +1,35 @@
 <template>
 <div>
   <div class="fake-column">
-    <h4 v-html="rawHtml">{{ rawHtml }}</h4>
+    <div style="display: inline-block; padding-right: 50px">
+        <el-tag
+          size="small"
+          type="dark"
+          v-for="(item,index) in risks"
+          :key="index"
+          :style="{
+          background: item.color,
+          border: 'none',
+          margin: '12px'
+        }"
+        >{{item.label}}: {{item.count}} 条
+        </el-tag>
+      </div>
     <el-table
       :data="tableData"
       :span-method="objectSpanMethod"
       style="width: 100%"
-      height="520"
       stripe
       :cell-style="cellStyle">
         <el-table-column
           prop="number"
-          label="#"
-          min-width="3%">
+          label=""
+          min-width="4%">
         </el-table-column>
         <el-table-column
           prop="voltage_class"
           label="电压等级"
-          min-width="15%"
+          min-width="10%"
           :filters="[{text: '220kV', value: '220kV'},{text: '110kV', value: '110kV'}, {text: '500kV', value: '500kV'}]"
           :filter-method="filterHandler">
         </el-table-column>
@@ -61,7 +73,7 @@
         <el-table-column
           prop="scheduled_time"
           label="预测时间"
-          min-width="15%">
+          min-width="20%">
         </el-table-column>
     </el-table>
   </div>
@@ -231,7 +243,24 @@ export default {
 
 
     ],
-      drawer:false,
+      
+      risks: [{
+        label: '正常',
+        count: 250,
+        color: 'green'
+      },{
+        label: '一般缺陷',
+        count: 65,
+        color: 'skyblue'
+      },{
+        label: '严重缺陷',
+        count: 20,
+        color: 'orange'
+      },{
+        label: '危机缺陷',
+        count: 5,
+        color: 'red'
+      }],drawer:false,
     }
   },
   methods: {
@@ -313,7 +342,7 @@ export default {
   background-color:white;
 }
 .el-table{
-  font-size:10px;
+  font-size:14px;
 }
 .line{
   color:red;
