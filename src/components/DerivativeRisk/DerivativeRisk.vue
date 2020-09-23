@@ -43,12 +43,6 @@ export default {
       }, {
         value: 2,
         label: '历史故障统计分析'
-      }, {
-        value: 3,
-        label: '衍生风险历史统计'
-      }, {
-        value: 4,
-        label: '衍生风险详细分析'
       }],
     }
   },

@@ -5,7 +5,7 @@
       <span>告警信息</span>
     </header>
     <p><span class="des">衍生风险等级高线路</span> <span style="padding-left: 50px"><span class="num">3</span> 条</span></p>
-    <p><span class="des">危急风险等级线路</span> <span style="padding-left: 70px"><span class="num">5</span> 条</span></p>
+    <p><span class="des">危急缺陷等级线路</span> <span style="padding-left: 70px"><span class="num">5</span> 条</span></p>
   </div>
 </template>
 

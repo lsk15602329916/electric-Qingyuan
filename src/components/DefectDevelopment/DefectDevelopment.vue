@@ -257,7 +257,7 @@ export default {
         count: 20,
         color: 'orange'
       },{
-        label: '危机缺陷',
+        label: '危急缺陷',
         count: 5,
         color: 'red'
       }],drawer:false,

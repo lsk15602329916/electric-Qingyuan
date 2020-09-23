@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <header>线路负债率</header>
+    <header>线路负载率</header>
     <p>
       <span class="des">
       220KV 平均超过 50%
