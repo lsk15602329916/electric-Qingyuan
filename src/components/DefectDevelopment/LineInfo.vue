@@ -10,14 +10,14 @@
         <h3 class="small-title">220kV燕浩甲线缺陷历史关联因素分析结果</h3>
         <el-table
             :data="table1Data"
-            style="width: 60%"
+            style="width: 85%"
             border
             stripe
             :cell-style="cellStyle"
             class="small-table">
             <el-table-column
                 prop="number"
-                label="#"
+                label=""
                 min-width="4%">
             </el-table-column>
             <el-table-column
@@ -41,7 +41,6 @@
         <el-table
             :data="table2Data"
             style="width: 85%"
-            height="370"
             border
             stripe
             :cell-style="cellStyle"
@@ -102,8 +101,10 @@
                 min-width="7%">
             </el-table-column>
         </el-table>
-        <el-button @click="transmitBoolean">关闭</el-button>
-        <el-button @click="historicalAnalysis">历史统计分析</el-button>
+        <div class="button-group">
+            <el-button @click="transmitBoolean" type="success" plain>关闭</el-button>
+            <el-button @click="historicalAnalysis" type="primary" plain>历史统计分析</el-button>
+        </div>
     </el-drawer>
     <MyAnalysis :showAnalysis='showAnalysis' @close-analysis='changeBoolean2'></MyAnalysis>
 </div>
@@ -394,21 +395,25 @@ export default {
     font-size:10px;
 }
 .small-table{
-    margin-left:180px;
+    margin-left:70px;
+    box-shadow: 4px 4px 2px #888888;
 }
 .big-table{
     margin-left:70px;
+    box-shadow: 4px 4px 2px #888888;
 }
-/* .big-table__header-wrapper{
-    height: 48px;
-}
-.big-table__body-wrapper{
-    height: calc(370px - 48px) !important;
-} */
 .small-title{
-    margin-left:270px;
+    margin-top:30px;
+    margin-left:340px;
 }
 .big-title{
-    margin-left:300px;
+    margin-top:30px;
+    margin-left:400px;
 }
+.button-group{
+    float:right;
+    margin-top:20px;
+    margin-right:100px;
+}
+
 </style>

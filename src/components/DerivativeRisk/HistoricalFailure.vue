@@ -112,7 +112,7 @@ export default {
         label: '故障按电压等级统计'
       },{
         value: 2,
-        label: '故障按月份统计'
+        label: '故障按天气统计'
       },{
         value: 3,
         label: '故障按地形统计'
@@ -132,7 +132,7 @@ export default {
           dataAxis: ['110KV', '220KV', '500KV']
         },
         {
-          title: '故障按月份统计',
+          title: '故障按天气统计',
           data: [36, 18, 137],
           dataAxis: ['晴天', '雨天', '雷雨天']
         },

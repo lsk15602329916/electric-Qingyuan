@@ -1,6 +1,7 @@
 const path = require("path");
 const resolve = dir => path.join(__dirname, dir);
 
+
 module.exports = {
     chainWebpack: config => {
         // 添加别名
@@ -14,5 +15,6 @@ module.exports = {
             .set("@router", resolve("src/router"))
             .set("@store", resolve("src/store"))
             .set("@static", resolve("src/static"));
-    }
+    },
+    publicPath:'./'
 };

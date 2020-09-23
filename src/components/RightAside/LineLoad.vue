@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <header>线路负债率</header>
+    <header>线路负载率</header>
     <p>
       <span class="des">
       220KV 平均超过 50%
@@ -28,7 +28,7 @@ export default {
 
 <style scoped lang="scss">
 .container{
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 15px;
   width: calc(100% - 30px);
   border: 2px solid #409EFF;

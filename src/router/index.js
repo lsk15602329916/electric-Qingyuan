@@ -16,7 +16,8 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    redirect: '/derivative-risk'
   },
   {
     path: '/fault-cause',
@@ -37,6 +38,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode:"hash",
   routes
 })
 
