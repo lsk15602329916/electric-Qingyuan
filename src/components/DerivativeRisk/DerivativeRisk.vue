@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-<<<<<<< HEAD
-    <div style="text-align: center; margin: 20px auto 40px">
+    <div style="text-align: center; margin: 20px auto">
       <el-dropdown @command="handleCommand">
         <el-button type="primary">
           <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
@@ -17,38 +16,6 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <header>
-      <div style="display: inline-block; padding-right: 50px">
-        <el-tag
-          size="small"
-          type="dark"
-          v-for="(item, index) in risks"
-          :key="index"
-          :style="{
-          background: item.color,
-          border: 'none',
-          margin: '4px'
-        }"
-        >{{item.label}}: {{item.count}} 个
-        </el-tag>
-=======
-    <div style="text-align: center; margin: 20px auto">
-        <el-dropdown @command="handleCommand">
-          <el-button type="primary">
-            <span style="color: white">{{ selectedLabel }}</span><i style="color: white" class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="item in options"
-              :command="item"
-              :key="item.value"
-              :value="item.value">
-              {{item.label}}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
->>>>>>> 5046219369fa5bcb98a6e314b9800ccb92f01e47
-      </div>
     <transition name="fade" mode="out-in">
       <home v-if="selected === 1" key="1"></home>
       <historyFailure v-else key="2"></historyFailure>
@@ -76,12 +43,6 @@ export default {
       }, {
         value: 2,
         label: '历史故障统计分析'
-      }, {
-        value: 3,
-        label: '衍生风险历史统计'
-      }, {
-        value: 4,
-        label: '衍生风险详细分析'
       }],
     }
   },
@@ -101,7 +62,7 @@ export default {
  .fade-enter-active, .fade-leave-active {
    transition: all .3s;
  }
- .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+ .fade-enter, .fade-leave-to {
    opacity: 0;
    transform: translateX(100px);
  }
