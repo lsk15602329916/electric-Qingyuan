@@ -1,5 +1,15 @@
 <template>
   <div class="container">
+    <header style="padding: 4px 0 0 4px">
+      <el-button
+        plain
+        size="mini"
+        type="primary"
+        @click="handleButtonClick"
+        >
+          故障相关性分析
+      </el-button>
+    </header>
     <div class="optional-bar">
       <header>
         <span style="font-size: 12px; padding-right: 15px">时间选择：</span>
@@ -53,7 +63,7 @@
           height="350px"
         ></basePie>
       </div>
-      <div class="optional-bar" @click="aa">
+      <div class="optional-bar">
         <header>
           <span style="font-size: 12px; padding-right: 15px">地区选择：</span>
           <el-select
@@ -78,20 +88,31 @@
         </baseBar>
       </div>
     </div>
+    <el-drawer
+      title="我是标题"
+      direction="ltr"
+      size="900px"
+      :visible.sync="drawer"
+      :with-header="false">
+      <correlationAnalysis></correlationAnalysis>
+    </el-drawer>
   </div>
 </template>
 
 <script>
 import baseBar from '@components/BaseBar/BaseBar'
 import basePie from '@components/BasePie/BasePie'
+import correlationAnalysis from '@components/DerivativeRisk/CorrelationAnalysis'
 export default {
   name: "HistoricalFailure",
   components: {
     baseBar,
-    basePie
+    basePie,
+    correlationAnalysis
   },
   data() {
     return {
+      drawer: false,
       index: 1,
       timeValue: '',
       areaValue: '',
@@ -150,8 +171,8 @@ export default {
     }
   },
   methods: {
-    aa() {
-      console.log(this.index)
+    handleButtonClick() {
+      this.drawer = true
     }
   }
 }

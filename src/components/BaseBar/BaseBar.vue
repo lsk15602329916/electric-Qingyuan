@@ -84,7 +84,7 @@ export default {
         text: title,
         textStyle: {
           fontSize: 22,
-          color: '#303133'
+          color: '#606266'
         },
       },
       xAxis: {
