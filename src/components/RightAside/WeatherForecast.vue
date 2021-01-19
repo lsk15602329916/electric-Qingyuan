@@ -26,7 +26,7 @@ export default {
      text-align: center;
      font-size: 26px;
      font-weight: bold;
-     margin: 15px auto 30px;
+     margin: 5px auto 15px;
    }
    i{
      color: #409EFF;

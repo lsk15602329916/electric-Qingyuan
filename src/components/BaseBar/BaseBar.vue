@@ -24,7 +24,7 @@ export default {
     },
     height: {
       type: String,
-      default: '240px'
+      default: '220px'
     },
     title: {
       type: String,
